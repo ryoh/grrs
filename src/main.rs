@@ -10,20 +10,16 @@ struct Cli {
 fn main() {
     let args = Cli::from_args();
     let result = std::fs::read_to_string(&args.path);
-    match result {
-        Ok(content) => {
-            println!("File content: {}", content);
-        }
+    let content = match result {
+        Ok(content) => content,
         Err(error) => {
-            eprint!("Oh noes: {}", error);
+            panic!("Can't deal with {}, just exit here", error);
         }
-    }
+    };
 
-    /*
     for line in content.lines() {
         if line.contains(&args.pattern) {
             println!("{}", line);
         }
     }
-    */
 }
