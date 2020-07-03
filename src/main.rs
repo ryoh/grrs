@@ -9,6 +9,11 @@ struct Cli {
 
 fn main() {
     let args = Cli::from_args();
+    let content = std::fs::read_to_string(&args.path).expect("could not read file");
 
-    println!("{:#?}", args);
+    for line in content.lines() {
+        if line.contains(&args.pattern) {
+            println!("{}", line);
+        }
+    }
 }
