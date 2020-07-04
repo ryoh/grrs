@@ -5,7 +5,7 @@ use std::process::Command;
 use tempfile::NamedTempFile;
 
 #[test]
-fn file_doesnt_exist() -> Result<(), Box<dyn std::error::Error>> {
+fn file_doesnt_exist() -> anyhow::Result<()> {
     let mut cmd = Command::cargo_bin("grrs")?;
 
     cmd.arg("foobar").arg("test/file/doent/exist");
@@ -17,7 +17,7 @@ fn file_doesnt_exist() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[test]
-fn find_content_in_file() -> Result<(), Box<dyn std::error::Error>> {
+fn find_content_in_file() -> anyhow::Result<()> {
     let mut file = NamedTempFile::new()?;
     writeln!(file, "A test\nActual content\nMore content\nAnother test")?;
 
@@ -31,7 +31,7 @@ fn find_content_in_file() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[test]
-fn too_less_argment() -> Result<(), Box<dyn std::error::Error>> {
+fn too_less_argment() -> anyhow::Result<()> {
     let mut cmd = Command::cargo_bin("grrs")?;
     cmd.assert()
         .failure()

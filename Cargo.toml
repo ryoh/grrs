@@ -8,8 +8,8 @@ edition = "2018"
 
 [dependencies]
 structopt = "0.3"
-failure = "0.1.8"
-exitfailure = "0.5.1"
+anyhow = "1.0"
+thiserror = "1.0"
 
 [dev-dependencies]
 assert_cmd = "0.10"
