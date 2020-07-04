@@ -10,10 +10,10 @@ struct Cli {
     path: std::path::PathBuf,
 }
 
-fn find_matches(content: &str, pattern: &str) {
+fn find_matches(content: &str, pattern: &str, mut writer: impl std::io::Write) {
     for line in content.lines() {
         if line.contains(pattern) {
-            println!("{}", line);
+            writeln!(writer, "{}", line);
         }
     }
 }
@@ -24,7 +24,14 @@ fn main() -> Result<(), ExitFailure> {
     let content = std::fs::read_to_string(path)
         .with_context(|_| format!("could not read file `{:?}`", path))?;
 
-    find_matches(&content, &args.pattern);
+    //find_matches(&content, &args.pattern);
 
     Ok(())
+}
+
+#[test]
+fn find_a_match() {
+    let mut result = Vec::new();
+    find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
+    assert_eq!(result, b"lorem ipsum\n");
 }
