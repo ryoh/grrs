@@ -19,15 +19,11 @@ fn main() -> Result<(), ExitFailure> {
     let stdout = io::stdout();
     let mut handle = io::BufWriter::new(stdout);
 
-    writeln!(handle, "content: {}", content);
-
-    /*
     for line in content.lines() {
         if line.contains(&args.pattern) {
-            println!("{}", line);
+            writeln!(handle, "{}", line);
         }
     }
-    */
 
     Ok(())
 }
