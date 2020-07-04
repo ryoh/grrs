@@ -29,3 +29,18 @@ fn find_content_in_file() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
+
+#[test]
+fn too_less_argment() -> Result<(), Box<dyn std::error::Error>> {
+    let mut cmd = Command::cargo_bin("grrs")?;
+    cmd.assert()
+        .failure()
+        .stderr(predicate::str::contains("error"));
+
+    cmd.arg("test");
+    cmd.assert()
+        .failure()
+        .stderr(predicate::str::contains("error"));
+
+    Ok(())
+}
